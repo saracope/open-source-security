@@ -1,0 +1,635 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abstractions_saracope</title>
+    <link rel="stylesheet" href="base.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="web.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="white.css" type="text/css" media="screen">
+</head>
+<body>
+
+    <h1>Practical Open Source Security</h1>
+    <h2>Sara Cope</h2>
+
+    <div class="slides">
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.001.jpg" alt="Image of slide number 1" />
+            </div>
+            <div class="slide-notes">
+                
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.002.jpg" alt="Image of slide number 2" />
+            </div>
+            <div class="slide-notes">
+                      <p>I work on an open source project that’s about other open source projects and consumes open source projects so I’m basically in open source and advocating for open source all day long. It’s amazing and I love it.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.003.jpg" alt="Image of slide number 3" />
+            </div>
+            <div class="slide-notes">
+                      <p>When <a href="http://code.gov" target="_blank">code.gov</a> was first launch in 2016 it had under 50 projects.</p>
+
+      <p>Today there are more than 6 thousand.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.004.jpg" alt="Image of slide number 4" />
+            </div>
+            <div class="slide-notes">
+                      <p>Popularity of open source isn’t just skyrocketing in the federal government. </p>
+
+      <p>Everyone seems to either want to publish an open source project, be a maintainer or contribute to an open source project. </p>
+
+      <p>Which is great because that creates even more software that’s available for everyone else to consume.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.005.jpg" alt="Image of slide number 5" />
+            </div>
+            <div class="slide-notes">
+                      <p>And we can see that in the way that package managers like NPM are growing as well. And as a result, we’re adding more and more dependencies to our applications.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.006.jpg" alt="Image of slide number 6" />
+            </div>
+            <div class="slide-notes">
+                      <p>So we see apps shifting to use more and more dependencies so much that amount of code we’re writing at times can me very small compared to the amount of code we’re consuming.</p>
+
+      <p>Using someone else’s code isn’t just set it and forget, that code at any time could potentially contain vulnerabilities. </p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.007.jpg" alt="Image of slide number 7" />
+            </div>
+            <div class="slide-notes">
+                      <p>So who’s responsibility is it to be sure the dependencies in your project stay secure? </p>
+                      <p>caption: group of people sitting around a table playing the "nose goes" (not it) game.</p>
+                      <p>This was me until the government shutdown last year. With 2 front-end devs on our team, I worked more on the design UI side while the over dev worked more on the "back of the front" stack like JavaScript, components and the like. But during the shutdown, both of the other 2 developers left our team. So I went from being on an engineering team to BEING the engineering team. I had to figure out a lot of things really quickly and security has been one of those topics. And that's really what I'm going to talk to you about today, all these security things we should be doing.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.008.jpg" alt="Image of slide number 8" />
+            </div>
+            <div class="slide-notes">
+                <p>"As a developer consuming open source dependencies, it's my responsibility to make sure my dependencies are secure."</p>
+                      <p>If you’re using open source (and you most certainly are), you need to take on the responsibility of keeping it secure. You must set up the tools and processes that will help you stay safe, and raise awareness of this risk throughout your organization. </p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.009.jpg" alt="Image of slide number 9" />
+            </div>
+            <div class="slide-notes">
+                      <p>The 2017 Equifax breach serves as a very painful lesson of what could happen if you don’t adopt a security mindset and take action to keep your application dependencies secure.</p>
+
+      <p>Equifax had a massive data breach that exposed the personal information of millions people. It was completely preventable. This breach was caused by an open source package dependency which had an identified vulnerability that went unpatched for 2 months.</p>
+
+      <p>https://www.synopsys.com/blogs/software-security/equifax-apache-struts-vulnerability-cve-2017-5638/</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.010.jpg" alt="Image of slide number 10" />
+            </div>
+            <div class="slide-notes">
+                      <p>So I want to go over specific things you could be doing for the applications that you develop which use open source dependencies.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.011.jpg" alt="Image of slide number 11" />
+            </div>
+            <div class="slide-notes">
+                      <p>Figure out the dependencies you have and what packages those depend on. </p>
+
+      <p>Not everyone comes in to a project at the beginning and knows exactly what’s being used. So take the time to go through the dependencies list to see what’s there.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.012.jpg" alt="Image of slide number 12" />
+            </div>
+            <div class="slide-notes">
+                      <p>Just stop and look at your dependencies. Familiarize and refresh yourself with what’s there. That way when you hear about a new vulnerability you might have a better reaction time when you know that your app is using certain packages.</p>
+
+      <p>If you’re an nom user, you can execute `npm ls` to display a dependency tree.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.013.jpg" alt="Image of slide number 13" />
+            </div>
+            <div class="slide-notes">
+                      <p>Use `npm outdated` to check the registry to see if any  installed packages are currently outdated</p>
+
+      <p>The more outdated a package is, the more likely it is to itself have vulnerable dependencies. </p>
+
+      <p>So npm outdated can tell you exactly how far behind you are in dependency versions.</p>
+
+      <p>It’s better to patch these up on your own terms instead of waiting for a vulnerability to be disclosed that you’re forced to immediately act on.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.014.jpg" alt="Image of slide number 14" />
+            </div>
+            <div class="slide-notes">
+                      <p>Get rid of dependencies you don’t need. As the number of dependencies increase, the risk of ending up with a vulnerable package can also increase.</p>
+
+      <p>With the passage of time and changes in your code, it is likely that you'll stop using some packages altogether and instead add in new ones. However, developers tend not to remove old packages as they go along.</p>
+
+      <p>Take the time to remove unused packages.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.015.jpg" alt="Image of slide number 15" />
+            </div>
+            <div class="slide-notes">
+                      <p>There are tools available to help with finding unused dependencies, here are a few.</p>
+
+      <p><a href="https://www.npmjs.com/package/depcheck" target="_blank">https://www.npmjs.com/package/depcheck</a></p>
+
+      <p><a href="https://www.npmjs.com/package/npm-check" target="_blank">https://www.npmjs.com/package/npm-check</a></p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.016.jpg" alt="Image of slide number 16" />
+            </div>
+            <div class="slide-notes">
+                      <p>Set up monitoring mechanisms to stay aware of new vulnerabilities as they are discovered so you can keep track of security announcements affecting those dependencies and any versions released.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.017.jpg" alt="Image of slide number 17" />
+            </div>
+            <div class="slide-notes">
+                      <p>Next you want to regularly scan for vulnerabilities so you know what’s going on with your dependencies and when to patch.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.018.jpg" alt="Image of slide number 18" />
+            </div>
+            <div class="slide-notes">
+                      <p>A security audit could exist as part of a code review</p>
+
+      <p>where peers ensure that secure code best practices are</p>
+
+      <p>followed, or by running different variations of security</p>
+
+      <p>audits such as static or dynamic application security</p>
+
+      <p>testing. Whether manual or automatic audits, they are</p>
+
+      <p>all a vital part of detecting and reducing vulnerabilities</p>
+
+      <p>in your application, and should be executed as</p>
+
+      <p>regularly and early in the development phase as</p>
+
+      <p>possible in order to reduce risks of exposure and data</p>
+
+      <p>breaches at a later stage</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.019.jpg" alt="Image of slide number 19" />
+            </div>
+            <div class="slide-notes">
+                      <p>There are several approaches you can take to scan for vulnerabilities and I would recommend a combination of all of these.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.020.jpg" alt="Image of slide number 20" />
+            </div>
+            <div class="slide-notes">
+                      <p>CLI: </p>
+
+      <p>The output varies by tool, but most will list either the known vulnerabilities or vulnerable paths, and provide information for each of them. This typically includes a title, description, severity score, and more.</p>
+
+      <p>It even provides `npm audit fix` to actually go ahead an upgrade those dependencies to patched releases where possible.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.021.jpg" alt="Image of slide number 21" />
+            </div>
+            <div class="slide-notes">
+                      <p>We use another tool called Snyk at the command line which can act pretty similar to `npm audit` and also provides an upgrade wizard.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.022.jpg" alt="Image of slide number 22" />
+            </div>
+            <div class="slide-notes">
+                      <p>Using an SCM integration offers a few advantages over the CLI:</p>
+
+      <p>• Easier to test or browse multiple issues at once</p>
+
+      <p>• The web interface is naturally richer than the terminal, often</p>
+
+      <p>allowing better usability</p>
+
+      <p>• It simplifies continuous testing and fixing, as we’ll see later on</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.023.jpg" alt="Image of slide number 23" />
+            </div>
+            <div class="slide-notes">
+                      <p>Github actually has a security tab on their interface now where you can see details of any detected vulnerabilities.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.024.jpg" alt="Image of slide number 24" />
+            </div>
+            <div class="slide-notes">
+                
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.025.jpg" alt="Image of slide number 25" />
+            </div>
+            <div class="slide-notes">
+                      <p>They’ve also added automated security fixes which you can turn on to have their dependabot submit PR’s to update packages that have identified vulnerabilities.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.026.jpg" alt="Image of slide number 26" />
+            </div>
+            <div class="slide-notes">
+                      <p>More recently, though, Google and Microsoft integrated detection of</p>
+
+      <p>vulnerable JS libraries into their web development tools, Lighthouse</p>
+
+      <p>and Webhint. Lighthouse is also embedded in Chrome’s and Opera’s</p>
+
+      <p>browser dev tools, further simplifying and raising the visibility of</p>
+
+      <p>this test.  I encourage you to try these tools out.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.027.jpg" alt="Image of slide number 27" />
+            </div>
+            <div class="slide-notes">
+                      <p>https://webhint.io/scanner</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.028.jpg" alt="Image of slide number 28" />
+            </div>
+            <div class="slide-notes">
+                      <p>Google lighthouse</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.029.jpg" alt="Image of slide number 29" />
+            </div>
+            <div class="slide-notes">
+                      <p>As you’re seeing vulnerabilities in packages you’ll hopefully want to educate yourself a bit on what exactly the issue is. </p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.030.jpg" alt="Image of slide number 30" />
+            </div>
+            <div class="slide-notes">
+                      <p>A good first place to start is to read the CVE for the vulnerability.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.031.jpg" alt="Image of slide number 31" />
+            </div>
+            <div class="slide-notes">
+                      <p>A CVE is created with a unique number when a specific vulnerability is found in a package.</p>
+                      <p><a href="http://cve.mitre.org/">cve.mitre.org</a></p>
+
+      <p>MITRE is a government-funded organization that puts out standards to be used by the information security community.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.032.jpg" alt="Image of slide number 32" />
+            </div>
+            <div class="slide-notes">
+                      <p>To follow new CVE announcements, you can checkout @CVEnew on Twitter.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.033.jpg" alt="Image of slide number 33" />
+            </div>
+            <div class="slide-notes">
+                      <p>Mitre also keeps a list of common issues they see, or CWE's. So you can visit this database to get a better idea of specific types of security vulnerabilities.</p>
+                      <p><a href="http://cwe.mitre.org/">cwe.mitre.org</a></p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.034.jpg" alt="Image of slide number 34" />
+            </div>
+            <div class="slide-notes">
+                      <p>There’s a whole informational database about different types of vulnerabilities which is interesting and fun to dive-in to.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.035.jpg" alt="Image of slide number 35" />
+            </div>
+            <div class="slide-notes">
+                      <p>Just to recap these:</p>
+
+      <p>CWE stands for Common Weakness Enumeration, and has to do with the vulnerability—not the instance within a product or system.</p>
+
+      <p>CVE stands for Common Vulnerabilities and Exposures, and has to do with the specific instance within a product or system—not the underlying flaw.</p>
+      <p>Here's a great blog post that recaps these and more: <a href="https://danielmiessler.com/blog/mitre-quick-reference/">https://danielmiessler.com/blog/mitre-quick-reference/</a></p>
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.036.jpg" alt="Image of slide number 36" />
+            </div>
+            <div class="slide-notes">
+                      <p>Establish a policy and process to quickly roll out a security fix release of your software product once supporting frameworks or libraries needs to be updated for security reasons. Best is to think in terms of hours or a few days, not weeks or months. Most breaches we become aware of are caused by failure to update software components that are known to be vulnerable for months or even years.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.037.jpg" alt="Image of slide number 37" />
+            </div>
+            <div class="slide-notes">
+                      <p>On <a href="http://code.gov" target="_blank">code.gov</a>, we’ve added a SECURITY.md file which give info on several areas. Here are some ideas for your security policy:</p>
+
+      <p>How quickly should we be releasing security fixes</p>
+
+      <p>How can someone let us know if we have a security vulnerability</p>
+
+      <p>Who to contact for more information</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.038.jpg" alt="Image of slide number 38" />
+            </div>
+            <div class="slide-notes">
+                      <p>Continuously tracking your application’s dependencies for vulnerabilities and efficiently addressing them is no simple feat. When you can, it’s great to automate a lot of these things to remove some of the security burden.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.039.jpg" alt="Image of slide number 39" />
+            </div>
+            <div class="slide-notes">
+                      <p>Often when developing open source software, and especially software that relies on outside services, you’ll find that you have to manage sensitive information. While there are a large number of things that can be considered sensitive, open source developers often deal with sensitive items such as API tokens, passwords, and private keys that are required for the system to function. One thing you can do is to scan your code on commit to check for these types of items.
+                          <p> Here's a blog post which details the tool we use and includes a quick setup script: <a href="https://18f.gsa.gov/2017/09/26/automated-scanning-for-sensitive-information/">https://18f.gsa.gov/2017/09/26/automated-scanning-for-sensitive-information/</a></p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.040.jpg" alt="Image of slide number 40" />
+            </div>
+            <div class="slide-notes">
+                      <p>You can add these CLI scanning applications to your tests so you can run them locally as part of your tests along with linting, accessibility testing, unit testing and anything else you might want to verify before making a pull request.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.041.jpg" alt="Image of slide number 41" />
+            </div>
+            <div class="slide-notes">
+                      <p>We’ve also added checks to our open source project using web hooks so that all pull requests are scanned for new vulnerabilities. </p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.042.jpg" alt="Image of slide number 42" />
+            </div>
+            <div class="slide-notes">
+                      <p>To continuously avoid known vulnerabilities in your dependencies, integrate a scanning tool into your build system.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.043.jpg" alt="Image of slide number 43" />
+            </div>
+            <div class="slide-notes">
+                      <p>Snyk is one the tools that we use to continuously monitor our projects. It will give you an immediate notification of any security vulnerabilities as well as send you a weekly email summary of new vulnerabilities.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.044.jpg" alt="Image of slide number 44" />
+            </div>
+            <div class="slide-notes">
+                      <p>It actually gives you a dashboard to you can see all your projects in one place which is really helpful.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.045.jpg" alt="Image of slide number 45" />
+            </div>
+            <div class="slide-notes">
+                      <p>WhiteSource is another example of a monitoring tool you can use and it’s actually what GitHub uses to do their security monitoring.</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.046.jpg" alt="Image of slide number 46" />
+            </div>
+            <div class="slide-notes">
+                      <p>Just to recap these things:</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.047.jpg" alt="Image of slide number 47" />
+            </div>
+            <div class="slide-notes">
+                      <p>And finally please remember that Open source is created by the community, and we as participants in that should work to keep it secure. </p>
+
+      <p>Please try to be a responsible member of both this ecosystem and your organization and accept ownership for controlling the risk from the libraries you use. </p>
+
+      <p>I hope you all stay secure!</p>
+
+
+            </div>
+        </div>
+        
+        <div class="slide slide--bordered">
+            <div class="slide-image">
+                <img src="images/images.048.jpg" alt="Image of slide number 48" />
+            </div>
+            <div class="slide-notes">
+                
+            </div>
+        </div>
+        
+    </div>
+
+
+</body>
+</html>
