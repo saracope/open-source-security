@@ -1,5 +1,5 @@
 # open-source-security
-Slides from this talk.
+View the slides from this talk in your web browser: https://saracope.github.io/open-source-security/
 
 Abstract: What's the best way to secure your open source dependencies? Not have any. But since over 80% of the source code that's shipped is derived from open source that's just not a reality. This makes auditing and managing your dependencies critical to achieving security compliance and instilling confidence in your application.
 
